@@ -1,9 +1,12 @@
-function updateCity(event) {
+function handleSubmit(event) {
   event.preventDefault();
-  let city = document.querySelector("#city-input");
-  let newCity = document.querySelector("#current-city");
-  newCity.innerHTML = city.value;
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${apiKey}&units=imperial`;
+  let city = document.querySelector("#city-input").value;
+  searchCity(city);
+}
+
+function searchCity(city) {
+  let apiKey = "eaf7d01f74cab187ef4b58c7a2bb6662";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
   axios.get(apiUrl).then(showTemperature);
 }
 
@@ -36,24 +39,23 @@ function weatherCurrentLocation() {
 function showPosition(position) {
   let lat = position.coords.latitude;
   let longitude = position.coords.longitude;
-  let newCity = document.querySelector("#current-city");
-  newCity.innerHTML = `Your current location`;
+  let apiKey = "eaf7d01f74cab187ef4b58c7a2bb6662";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${longitude}&appid=${apiKey}&units=imperial`;
   axios.get(apiUrl).then(showTemperature);
 }
 
 function showTemperature(response) {
-  let currentTemp = response.data.main.temp;
-  let temperatureElement = document.querySelector("#temp-now");
-  temperatureElement.innerHTML = `${Math.round(currentTemp)}`;
+  document.querySelector("#temp-now").innerHTML = `${Math.round(
+    response.data.main.temp
+  )}`;
+  document.querySelector("#current-city").innerHTML = response.data.name;
 }
 
 updateTime();
+searchCity("Zurich");
 
 let citySearch = document.querySelector(".search-form");
-citySearch.addEventListener("submit", updateCity);
+citySearch.addEventListener("submit", handleSubmit);
 
 let useCurrentLocation = document.querySelector("#current-location-button");
 useCurrentLocation.addEventListener("click", weatherCurrentLocation);
-
-let apiKey = "eaf7d01f74cab187ef4b58c7a2bb6662";
