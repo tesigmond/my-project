@@ -1,0 +1,18 @@
+#currentWeather {
+  font-size: 54px;
+  display: block;
+  text-align: center;
+}
+.weather-app {
+  max-width: 600px;
+}
+
+#temp-now {
+  font-size: 54px;
+}
+h5 {
+  font-size: 24px;
+}
+h6 {
+  font-size: 18px;
+}
