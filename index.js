@@ -26,10 +26,16 @@ function updateTime() {
   let hours = now.getHours();
   let minutes = now.getMinutes();
 
-  let newTime = `${day} ${hours}:${minutes}`;
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
 
-  let currentDayTime = document.querySelector("#current-day-time");
-  currentDayTime.innerHTML = newTime;
+  document.querySelector(
+    "#current-day-time"
+  ).innerHTML = `${day} ${hours}:${minutes}`;
 }
 
 function weatherCurrentLocation() {
